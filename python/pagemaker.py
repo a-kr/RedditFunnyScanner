@@ -10,6 +10,6 @@ def make_page(links):
     yield '</style>'
     yield '<ol>'
     for link in links:
-        yield '<li><a href="%s">%s</a></li>' % (str(link.url), str(link.title))
+        yield '<li><a href="%s">%s</a></li>' % (link.url.encode('utf-8', errors='replace'), link.title.encode('utf-8', errors='replace'))
     yield '</ol>'
     yield '</html>'
