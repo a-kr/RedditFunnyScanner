@@ -7,17 +7,19 @@ import apireader
 from linkmodel import Link
 from dbdumper import fetch_and_dump
 
+PORT = 8663
+
 def hello_world_app(environ, start_response):
     uri = request_uri(environ)
     uri = urlparse.urlparse(uri)
     
-    if uri.path == '/pics':
+    if uri.path == '/':
         status = '200 OK' # HTTP Status
         headers = [('Content-type', 'text/html')] # HTTP Headers
         start_response(status, headers)
         links = Link.select_all()
         return pagemaker.make_page(links)
-    if uri.path == '/pics/fresh':
+    if uri.path == '/fresh':
         status = '200 OK' # HTTP Status
         headers = [('Content-type', 'text/html')] # HTTP Headers
         start_response(status, headers)
@@ -27,7 +29,9 @@ def hello_world_app(environ, start_response):
     start_response('404 Not Found', [('Content-type', 'text/html')])
     return ['<h1>404</h1>']
 
-httpd = make_server('', 8000, hello_world_app)
-print "Serving on port 8000..."
+    
+if __name__ == '__main__':
+    httpd = make_server('', PORT, hello_world_app)
+    print "Serving on port %d..." % PORT
 
-httpd.serve_forever()
+    httpd.serve_forever()
