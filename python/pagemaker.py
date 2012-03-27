@@ -5,6 +5,9 @@
 def make_page(links):
     yield '<html>'
     yield '<title>/r/funny</title>'
+    yield '<style>'
+    yield 'li { margin-top: 16px; margin-bottom: 16px; }'
+    yield '</style>'
     yield '<ol>'
     for link in links:
         yield '<li><a href="%s">%s</a></li>' % (str(link.url), str(link.title))
